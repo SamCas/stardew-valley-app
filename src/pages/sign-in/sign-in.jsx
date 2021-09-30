@@ -12,7 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import GoogleIcon from '@mui/icons-material/Google';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import './sign-in.scss';
 
 import { signInWithGoogle } from '../../firebase/firebase.utils';
 
@@ -29,8 +30,6 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
-
 export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -43,7 +42,6 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -120,6 +118,5 @@ export default function SignIn() {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
   );
 }

@@ -10,6 +10,7 @@ import "./App.css";
 import Header from "./components/header/header";
 import HomePage from "./pages/home-page/home-page";
 import SignIn from "./pages/sign-in/sign-in";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 class App extends React.Component {
   constructor() {
@@ -20,7 +21,23 @@ class App extends React.Component {
     };
   }
 
-  unsubscribeFromAuth = null; 
+  theme = createTheme({
+    palette: {
+      primary: {
+        light: "#757ce8",
+        main: "#3f50b5",
+        dark: "#002884",
+        contrastText: "#fff",
+      },
+      secondary: {
+        light: "#ff7961",
+        main: "#f44336",
+        dark: "#ba000d",
+        contrastText: "#000",
+      },
+    },
+  });
+  unsubscribeFromAuth = null;
 
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
@@ -34,13 +51,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/signin" component={SignIn} />
-        </Switch>
-      </div>
+      <ThemeProvider theme={this.theme}>
+        <div>
+          <Header currentUser={this.state.currentUser} />
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/signin" component={SignIn} />
+          </Switch>
+        </div>
+      </ThemeProvider>
     );
   }
 }
