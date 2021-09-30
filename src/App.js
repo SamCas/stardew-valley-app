@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+// Moudles
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import { auth } from "./firebase/firebase.utils";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// Style
+import "./App.css";
+
+// Pages
+import Header from "./components/header/header";
+import HomePage from "./pages/home-page/home-page";
+import SignIn from "./pages/sign-in/sign-in";
+
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      currentUser: null,
+    };
+  }
+
+  unsubscribeFromAuth = null; 
+
+  componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+      this.setState({ currentUser: user });
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
+
+  render() {
+    return (
+      <div>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/signin" component={SignIn} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;
