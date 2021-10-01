@@ -9,6 +9,7 @@ import "./App.css";
 // Pages
 import Header from "./components/header/header";
 import HomePage from "./pages/home-page/home-page";
+import Crops from "./pages/crops-page/crops";
 import SignIn from "./pages/sign-in/sign-in";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -37,6 +38,7 @@ class App extends React.Component {
       },
     },
   });
+
   unsubscribeFromAuth = null;
 
   componentDidMount() {
@@ -56,7 +58,8 @@ class App extends React.Component {
           <Header currentUser={this.state.currentUser} />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route path="/signin" component={SignIn} />
+            <Route exact path="/crops" component={Crops} />
+            <Route exact path="/signin" component={SignIn} />
           </Switch>
         </div>
       </ThemeProvider>
